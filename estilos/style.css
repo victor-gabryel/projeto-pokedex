@@ -1,0 +1,120 @@
+#pokemon-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    list-style: none;
+    padding: 0;
+    justify-content: center;
+}
+
+.card {
+    position: relative;
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+    padding-top: 32px; /* espaço para o tipo */
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.type-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    padding: 4px;
+    gap: 2px;
+    background: rgba(255, 255, 255, 0.8);
+    border-bottom-right-radius: 8px;
+}
+
+.type-icon {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+    padding: 4px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.type-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 8px rgba(0,0,0,0.25);
+}
+
+.card img {
+    display: block;
+    margin: 0 auto;
+}
+
+.modal img {
+    display: block;
+    margin: 0 auto;
+}
+
+#modalTypes {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+#modalTypes .type-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 6px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.25);
+}
+
+.type-bug { background-color: #92BC2C; }
+.type-dark { background-color: #595761; }
+.type-dragon { background-color: #0C69C8; }
+.type-electric { background-color: #F2D94E; }
+.type-fairy { background-color: #EE90E6; }
+.type-fighting { background-color: #D3425F; }
+.type-fire { background-color: #FBA54C; }
+.type-ghost { background-color: #5F6DBC; }
+.type-ice { background-color: #75D0C1; }
+.type-normal { background-color: #A0A29F; }
+.type-poison { background-color: #B763CF; }
+.type-psychic { background-color: #FA8581; }
+.type-rock { background-color: #C9BB8A; }
+.type-steel { background-color: #5695A3; }
+.type-water { background-color: #539DDF; }
+.type-grass { background-color: #5FBD58; }
+.type-ground { background-color: #DA7C4D; }
+.type-flying { background-color: #A1BBEC; }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h1, h2, h3, h4, h5 {
+    text-align: center;
+}
+
+button {
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #3280f5;
+}
