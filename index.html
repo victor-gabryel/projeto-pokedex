@@ -4,106 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex</title>
-    <!-- Bootstrap CSS -->
-    <link 
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
-        rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
     <link rel="stylesheet" href="estilos/style.css">
 </head>
 <body>
 
-<!-- Inicio Section Header/Nav -->
-<section>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-        <div class="container-fluid">
-            <!-- Logo -->
+<header id="main-header">
+    <nav class="navbar">
+        <div class="container">
             <a class="navbar-brand" href="#">MeuSite</a>
 
-            <!-- Botão hamburguer: aparece apenas em telas pequenas -->
-            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral">
-                <span class="navbar-toggler-icon"></span>
+            <button class="nav-toggler" id="menuToggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
             </button>
 
-            <!-- Links do menu (visíveis em telas grandes) -->
-            <div class="collapse navbar-collapse d-none d-lg-flex justify-content-end" id="menuDesktop">
-                <ul class="navbar-nav">
+            <div class="nav-menu desktop-menu" id="menuDesktop">
+                <ul class="nav-list">
                     <li class="nav-item">
                         <a class="nav-link active" href="#">Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Favoritos</a>
                     </li>
-                    <li class="nav-item d-flex">
-                        <input id="PokemonName" type="text" placeholder="Digite o nome" class="form-control me-2">
-                        <input type="button" value="Buscar" class="btn btn-light" onclick="BuscarName()">
+                    <li class="nav-item nav-search-form">
+                        <input id="PokemonName" type="text" placeholder="Digite o nome" class="form-control">
+                        <button class="btn btn-light" onclick="BuscarName()">Buscar</button>
                     </li>
                 </ul>
             </div>
-
-            <!-- Menu Lateral (offcanvas) para telas pequenas -->
-            <div class="offcanvas offcanvas-end text-bg-primary d-lg-none" tabindex="-1" id="menuLateral">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title">Menu</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" href="#">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="#">Favoritos</a>
-                        </li>
-                        <li class="nav-item mt-3">
-                            <input id="PokemonNameSmall" type="text" placeholder="Digite o nome" class="form-control mb-2">
-                            <input type="button" value="Buscar" class="btn btn-light w-100" onclick="BuscarName()">
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
         </div>
     </nav>
-</section>
-<!-- Fim Section Header/Nav -->
-
-<!-- Inicio Section PokeList -->
-<section id="PokeList" class="mt-5 pt-4 text-center">
-    <div class="container my-4">
-        <h1 class="text-center mb-4">Pokédex</h1>
+    
+    <div class="sidebar" id="menuLateral">
+        <button class="close-btn" id="closeMenu">&times;</button>
+        <div class="sidebar-body">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Favoritos</a>
+                </li>
+                <li class="nav-item nav-search-form">
+                    <input id="PokemonNameSmall" type="text" placeholder="Digite o nome" class="form-control mb-2">
+                    <button class="btn btn-light w-100" onclick="BuscarName()">Buscar</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="backdrop" id="backdrop"></div>
+</header>
+<section id="PokeList" class="content-section">
+    <div class="container">
+        <h1 class="section-title">Pokédex</h1>
         <ul id="pokemon-list"></ul>
-        <div class="d-flex justify-content-between mt-3">
+        <div class="pagination-controls">
             <button class="btn btn-primary" onclick="prevPage()">Anterior</button>
             <button class="btn btn-primary" onclick="nextPage()">Próximo</button>
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="pokemonModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content text-center p-3">
-            <h2 id="modalTitle"></h2>
-            <img id="modalImage" src="" alt="" class="mb-3">
-            <p><strong>ID:</strong> <span id="modalId"></span></p>
-            <p><strong>Tipos:</strong> <span id="modalTypes"></span></p>
-            <p><strong>Altura:</strong> <span id="modalHeight"></span> m</p>
-            <p><strong>Peso:</strong> <span id="modalWeight"></span> kg</p>
-            <button type="button" class="btn btn-secondary mt-2" data-bs-dismiss="modal">Fechar</button>
+    <div id="pokemonModal" class="modal-overlay">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <button type="button" class="close-modal-btn" onclick="closeModal()">&times;</button>
+                <div class="modal-body">
+                    <h2 id="modalTitle"></h2>
+                    <img id="modalImage" src="" alt="" class="modal-img">
+                    <p><strong>ID:</strong> <span id="modalId"></span></p>
+                    <p><strong>Tipos:</strong> <span id="modalTypes"></span></p>
+                    <p><strong>Altura:</strong> <span id="modalHeight"></span> m</p>
+                    <p><strong>Peso:</strong> <span id="modalWeight"></span> kg</p>
+                    <button type="button" class="btn btn-secondary mt-2" onclick="closeModal()">Fechar</button>
+                </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Fim Section PokeList -->
-
-
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- JavaScript -->
 <script src="scripts/JavaScript.js"></script>
 
 </body>
 </html>
-
