@@ -1,9 +1,9 @@
-/* RESET E ESTILOS GERAIS */
+/* =================== VARIÁVEIS E RESET =================== */
 :root {
-    --primary-color: #0d6efd; /* Azul primário similar ao Bootstrap */
-    --light-color: #f8f9fa;
-    --dark-color: #333;
-    --gray-bg: #f4f4f4;
+    --cor-primaria: #0d6efd;
+    --cor-clara: #f8f9fa;
+    --cor-escura: #333;
+    --fundo-cinza: #f4f4f4;
 }
 
 * {
@@ -14,15 +14,12 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--gray-bg);
-    color: var(--dark-color);
-    padding-top: 60px; /* Espaço para o header fixo */
+    background-color: var(--fundo-cinza);
+    color: var(--cor-escura);
+    padding-top: 60px; /* espaço para o cabeçalho fixo */
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
+a { text-decoration: none; color: inherit; }
 
 .container {
     width: 90%;
@@ -31,7 +28,7 @@ a {
     padding: 0 15px;
 }
 
-/* BOTÕES GERAIS */
+/* =================== BOTÕES =================== */
 .btn {
     border: none;
     padding: 8px 16px;
@@ -41,84 +38,50 @@ a {
     transition: background 0.3s ease, opacity 0.3s ease;
 }
 
-.btn-primary {
-    background-color: var(--primary-color);
-    color: white;
-}
+.btn-primario { background-color: var(--cor-primaria); color: white; }
+.btn-primario:hover { background-color: #0b5ed7; }
 
-.btn-primary:hover {
-    background-color: #0b5ed7; /* tom mais escuro */
-}
+.btn-claro { background-color: var(--cor-clara); color: var(--cor-escura); border: 1px solid #ddd; }
+.btn-secundario { background-color: #6c757d; color: white; }
 
-.btn-light {
-    background-color: var(--light-color);
-    color: var(--dark-color);
-    border: 1px solid #ddd;
-}
-
-.form-control {
+/* =================== FORMULÁRIOS =================== */
+.campo-formulario {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 100%;
 }
 
+/* =================== NAVBAR =================== */
+#cabecalho-principal { position: fixed; top:0; left:0; width:100%; z-index:1000; }
 
-/* BARRA DE NAVEGAÇÃO E RESPONSIVIDADE (NAVBAR) */
-#main-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
-.navbar {
-    background-color: var(--primary-color);
+.barra-navegacao {
+    background-color: var(--cor-primaria);
     color: white;
     padding: 10px 0;
 }
 
-.navbar .container {
+.barra-navegacao .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.navbar-brand {
+.marca-site {
     font-size: 1.5rem;
     font-weight: 700;
 }
 
-.nav-menu {
-    display: none; /* Escondido por padrão no mobile */
-}
+/* MENU DESKTOP */
+.menu-desktop { display: none; }
+.lista-navegacao { display: flex; list-style: none; }
+.item-navegacao { margin-left: 20px; }
+.link-navegacao { padding: 8px 0; transition: opacity 0.3s; }
+.link-navegacao:hover { opacity: 0.8; }
+.form-busca { display: flex; gap: 8px; }
 
-.nav-list {
-    display: flex;
-    list-style: none;
-}
-
-.nav-item {
-    margin-left: 20px;
-}
-
-.nav-link {
-    padding: 8px 0;
-    transition: opacity 0.3s;
-}
-
-.nav-link:hover {
-    opacity: 0.8;
-}
-
-.nav-search-form {
-    display: flex;
-    gap: 8px;
-}
-
-/* Hamburger Toggler (Mobile) */
-.nav-toggler {
+/* HAMBURGER */
+.botao-menu {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -129,102 +92,72 @@ a {
     cursor: pointer;
     z-index: 1010;
 }
-
-.nav-toggler .bar {
+.botao-menu .barra {
     width: 100%;
     height: 3px;
     background-color: white;
     transition: all 0.3s linear;
 }
 
-/* SIDEBAR/OFFCANVAS (Mobile Menu) */
-.sidebar {
+/* =================== MENU LATERAL =================== */
+.menu-lateral {
     position: fixed;
     top: 0;
-    right: -300px; /* Escondido fora da tela */
+    right: -300px;
     width: 300px;
     height: 100%;
-    background-color: var(--primary-color);
+    background-color: var(--cor-primaria);
     color: white;
     transition: right 0.3s ease-in-out;
     z-index: 1020;
     padding: 20px;
 }
 
-.sidebar.is-open {
-    right: 0;
-}
+.menu-lateral.aberto { right: 0; }
+.menu-lateral .lista-navegacao { flex-direction: column; }
+.menu-lateral .item-navegacao { margin: 10px 0; width: 100%; }
+.menu-lateral .form-busca { flex-direction: column; padding-top: 10px; }
 
-.sidebar .nav-list {
-    flex-direction: column;
-}
-
-.sidebar .nav-item {
-    margin: 10px 0;
-    width: 100%;
-}
-
-.sidebar .nav-search-form {
-    flex-direction: column;
-    padding-top: 10px;
-}
-
-.close-btn {
+.botao-fechar {
     position: absolute;
     top: 10px;
     right: 15px;
     font-size: 2rem;
-    color: white;
-    background: transparent;
+    background: none;
     border: none;
     cursor: pointer;
+    color: white;
 }
 
-.backdrop {
+.fundo-escuro {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0,0,0,0.5);
     z-index: 1010;
     display: none;
 }
 
-/* MEDIA QUERY - DESKTOP */
-@media (min-width: 992px) { /* Similar ao .d-lg-none do Bootstrap */
-    .nav-toggler {
-        display: none;
-    }
-    .nav-menu {
-        display: block;
-    }
-    .nav-menu .nav-list {
-        justify-content: flex-end;
-    }
-    .sidebar, .backdrop {
-        display: none !important;
-    }
-    
-    .nav-search-form {
-        margin-left: 20px;
-        align-items: center;
-    }
-    .nav-search-form .form-control {
-        width: 150px; /* Largura padrão */
-    }
+/* =================== MEDIA QUERY =================== */
+@media (min-width: 992px) {
+    .botao-menu { display: none; }
+    .menu-desktop { display: block; }
+    .menu-desktop .lista-navegacao { justify-content: flex-end; }
+    .menu-lateral, .fundo-escuro { display: none !important; }
+    .form-busca { margin-left: 20px; align-items: center; }
+    .form-busca .campo-formulario { width: 150px; }
 }
 
-
-/* CONTEÚDO PRINCIPAL (POKEDEX) */
-
-.section-title {
+/* =================== CONTEÚDO PRINCIPAL =================== */
+.titulo-secao {
     text-align: center;
     margin-bottom: 25px;
     padding-top: 20px;
 }
 
-#pokemon-list {
+#lista-pokemon {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
@@ -234,17 +167,14 @@ a {
     margin-bottom: 25px;
 }
 
-/* Paginação */
-.pagination-controls {
+.controles-paginacao {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
     padding-bottom: 40px;
 }
 
-
-/* CARD DE POKÉMON (Mantido similar ao original) */
-
+/* =================== CARD =================== */
 .card {
     position: relative;
     width: 150px;
@@ -253,79 +183,38 @@ a {
     cursor: pointer;
     border: 1px solid #ddd;
     border-radius: 8px;
-    background: var(--light-color);
+    background: var(--cor-clara);
     transition: transform 0.2s, box-shadow 0.2s;
     overflow: hidden;
-    padding: 32px 10px 10px; /* Ajuste para o tipo */
+    padding: 32px 10px 10px;
 }
 
-.card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
+.card:hover { transform: scale(1.05); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+.favorite-btn { position: absolute; top: 4px; right: 4px; z-index: 10; }
 
-.favorite-btn {
-    position: absolute;
-    top: 4px;
-    right: 4px;
-    z-index: 10;
-}
-
-/* ÍCONES DE TIPO (Mantido similar ao original) */
-.type-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    padding: 4px;
-    gap: 2px;
-    background: rgba(255, 255, 255, 0.8);
-    border-bottom-right-radius: 8px;
-}
-
-/* Cores de Tipo (Mantido o mesmo) */
-.type-icon {
-    width: 24px;
-    height: 24px;
-    display: inline-block;
-    vertical-align: middle;
-    border-radius: 50%;
-    padding: 4px;
-}
-
-.type-bug { background-color: #92BC2C; }
-.type-dark { background-color: #595761; }
-/* ... (outras cores de tipo, mantidas as mesmas do seu código original) ... */
-.type-water { background-color: #539DDF; }
-.type-grass { background-color: #5FBD58; }
-.type-ground { background-color: #DA7C4D; }
-.type-flying { background-color: #A1BBEC; }
-
-/* MODAL (JANELA POP-UP) */
-.modal-overlay {
+/* =================== MODAL =================== */
+.modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: none; /* Escondido por padrão */
+    background-color: rgba(0,0,0,0.6);
+    display: none;
     justify-content: center;
     align-items: center;
     z-index: 2000;
 }
 
-.modal-overlay.is-open {
-    display: flex;
-}
+.modal.aberto { display: flex; }
 
-.modal-dialog {
+.modal-dialogo {
     max-width: 400px;
     width: 90%;
     margin: 20px;
 }
 
-.modal-content {
+.modal-conteudo {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
@@ -333,7 +222,7 @@ a {
     text-align: center;
 }
 
-.close-modal-btn {
+.botao-fechar-modal {
     position: absolute;
     top: 10px;
     right: 15px;
@@ -341,15 +230,12 @@ a {
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--dark-color);
+    color: var(--cor-escura);
 }
 
-.modal-img {
-    display: block;
-    margin: 0 auto 15px;
-}
+.modal-img { display: block; margin: 0 auto 15px; }
 
-#modalTypes {
+#tiposModal {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -357,10 +243,30 @@ a {
     margin-top: 8px;
 }
 
-#modalTypes .type-icon {
+#tiposModal .type-icon {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     padding: 6px;
     box-shadow: 0 0 5px rgba(0,0,0,0.25);
 }
+
+/* =================== TIPOS (cores dos Pokémon) =================== */
+.type-bug { background-color: #92BC2C; }
+.type-dark { background-color: #595761; }
+.type-dragon { background-color: #0C69C8; }
+.type-electric { background-color: #F2D94E; }
+.type-fairy { background-color: #EE90E6; }
+.type-fighting { background-color: #D3425F; }
+.type-fire { background-color: #FBA54C; }
+.type-ghost { background-color: #5F6DBC; }
+.type-grass { background-color: #5FBD58; }
+.type-ground { background-color: #DA7C4D; }
+.type-ice { background-color: #75D0C1; }
+.type-normal { background-color: #A0A29F; }
+.type-poison { background-color: #B763CF; }
+.type-psychic { background-color: #FA8581; }
+.type-rock { background-color: #C9BB8A; }
+.type-steel { background-color: #5695A3; }
+.type-water { background-color: #539DDF; }
+.type-flying { background-color: #A1BBEC; }

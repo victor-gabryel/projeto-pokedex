@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex</title>
+    
+    <link rel="stylesheet" href="estilos/style.css">
+</head>
+<body>
+
+<header id="main-header">
+    <nav class="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">MeuSite</a>
+
+            <button class="nav-toggler" id="menuToggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <div class="nav-menu desktop-menu" id="menuDesktop">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="favoritos.html">Favoritos</a>
+                    </li>
+                    <li class="nav-item nav-search-form">
+                        <input id="PokemonName" type="text" placeholder="Digite o nome" class="form-control">
+                        <button class="btn btn-light" onclick="BuscarName()">Buscar</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="sidebar" id="menuLateral">
+        <button class="close-btn" id="closeMenu">&times;</button>
+        <div class="sidebar-body">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.html">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="favoritos.html">Favoritos</a>
+                </li>
+                <li class="nav-item nav-search-form">
+                    <input id="PokemonNameSmall" type="text" placeholder="Digite o nome" class="form-control mb-2">
+                    <button class="btn btn-light w-100" onclick="BuscarName()">Buscar</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="backdrop" id="backdrop"></div>
+</header>
+<section id="PokeList" class="content-section">
+    <div class="container">
+        <h1 class="section-title">Pokédex</h1>
+        <ul id="pokemon-list"></ul>
+        <div class="pagination-controls">
+            <button class="btn btn-primary" onclick="prevPage()">Anterior</button>
+            <button class="btn btn-primary" onclick="nextPage()">Próximo</button>
+        </div>
+    </div>
+
+
+</section>
+
+</body>
+</html>

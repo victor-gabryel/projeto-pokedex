@@ -4,87 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
     <link rel="stylesheet" href="estilos/style.css">
 </head>
 <body>
 
-<header id="main-header">
-    <nav class="navbar">
+<header id="cabecalho-principal">
+    <nav class="barra-navegacao">
         <div class="container">
-            <a class="navbar-brand" href="#">MeuSite</a>
+            <a class="marca-site" href="#">MeuSite</a>
 
-            <button class="nav-toggler" id="menuToggle">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+            <button class="botao-menu" id="botaoMenu">
+                <span class="barra"></span>
+                <span class="barra"></span>
+                <span class="barra"></span>
             </button>
 
-            <div class="nav-menu desktop-menu" id="menuDesktop">
-                <ul class="nav-list">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Inicio</a>
+            <div class="menu-desktop" id="menuDesktop">
+                <ul class="lista-navegacao">
+                    <li class="item-navegacao">
+                        <a class="link-navegacao ativo" href="#">Início</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Favoritos</a>
+                    <li class="item-navegacao">
+                        <a class="link-navegacao" href="#">Favoritos</a>
                     </li>
-                    <li class="nav-item nav-search-form">
-                        <input id="PokemonName" type="text" placeholder="Digite o nome" class="form-control">
-                        <button class="btn btn-light" onclick="BuscarName()">Buscar</button>
+                    <li class="item-navegacao form-busca">
+                        <input id="nomePokemon" type="text" placeholder="Digite o nome" class="campo-formulario">
+                        <button class="btn btn-claro" onclick="buscarPokemon()">Buscar</button>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    
-    <div class="sidebar" id="menuLateral">
-        <button class="close-btn" id="closeMenu">&times;</button>
-        <div class="sidebar-body">
-            <ul class="nav-list">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Inicio</a>
+
+    <div class="menu-lateral" id="menuLateral">
+        <button class="botao-fechar" id="fecharMenu">&times;</button>
+        <div class="corpo-menu">
+            <ul class="lista-navegacao">
+                <li class="item-navegacao">
+                    <a class="link-navegacao ativo" href="#">Início</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Favoritos</a>
+                <li class="item-navegacao">
+                    <a class="link-navegacao" href="#">Favoritos</a>
                 </li>
-                <li class="nav-item nav-search-form">
-                    <input id="PokemonNameSmall" type="text" placeholder="Digite o nome" class="form-control mb-2">
-                    <button class="btn btn-light w-100" onclick="BuscarName()">Buscar</button>
+                <li class="item-navegacao form-busca">
+                    <input id="nomePokemonMobile" type="text" placeholder="Digite o nome" class="campo-formulario mb-2">
+                    <button class="btn btn-claro w-100" onclick="buscarPokemon()">Buscar</button>
                 </li>
             </ul>
         </div>
     </div>
-    <div class="backdrop" id="backdrop"></div>
+    <div class="fundo-escuro" id="fundoEscuro"></div>
 </header>
-<section id="PokeList" class="content-section">
+
+<section id="listaPokemons" class="secao-conteudo">
     <div class="container">
-        <h1 class="section-title">Pokédex</h1>
-        <ul id="pokemon-list"></ul>
-        <div class="pagination-controls">
-            <button class="btn btn-primary" onclick="prevPage()">Anterior</button>
-            <button class="btn btn-primary" onclick="nextPage()">Próximo</button>
+        <h1 class="titulo-secao">Pokédex</h1>
+        <ul id="lista-pokemon"></ul>
+        <div class="controles-paginacao">
+            <button class="btn btn-primario" onclick="paginaAnterior()">Anterior</button>
+            <button class="btn btn-primario" onclick="proximaPagina()">Próximo</button>
         </div>
     </div>
 
-    <div id="pokemonModal" class="modal-overlay">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <button type="button" class="close-modal-btn" onclick="closeModal()">&times;</button>
-                <div class="modal-body">
-                    <h2 id="modalTitle"></h2>
-                    <img id="modalImage" src="" alt="" class="modal-img">
-                    <p><strong>ID:</strong> <span id="modalId"></span></p>
-                    <p><strong>Tipos:</strong> <span id="modalTypes"></span></p>
-                    <p><strong>Altura:</strong> <span id="modalHeight"></span> m</p>
-                    <p><strong>Peso:</strong> <span id="modalWeight"></span> kg</p>
-                    <button type="button" class="btn btn-secondary mt-2" onclick="closeModal()">Fechar</button>
+    <!-- modalPokemon -->
+    <div id="modalPokemon" class="modal">
+        <div class="modal-dialogo">
+            <div class="modal-conteudo">
+                <button type="button" class="botao-fechar-modal" onclick="fecharModal()">&times;</button>
+                <div class="modal-corpo">
+                    <h2 id="tituloModal"></h2>
+                    <img id="imagemModal" src="" alt="" class="modal-img">
+                    <p><strong>ID:</strong> <span id="idModal"></span></p>
+                    <p><strong>Tipos:</strong> <span id="tiposModal"></span></p>
+                    <p><strong>Altura:</strong> <span id="alturaModal"></span> m</p>
+                    <p><strong>Peso:</strong> <span id="pesoModal"></span> kg</p>
+                    <button type="button" class="btn btn-secundario mt-2" onclick="fecharModal()">Fechar</button>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 <script src="scripts/JavaScript.js"></script>
 
 </body>
