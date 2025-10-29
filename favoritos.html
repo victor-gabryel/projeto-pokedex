@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <!-- Define o tipo de documento HTML e o idioma -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Favoritos - Pokédex</title>
   <link rel="stylesheet" href="estilos/style.css">
-
-  <!-- Importa os ícones do Font Awesome (usados em botões e estrelas) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
@@ -15,113 +12,122 @@
   <!-- Cabeçalho -->
   <header id="cabecalho-principal">
     <nav class="barra-navegacao">
-        <div class="container">
-        <!-- Nome do site -->
+      <div class="container">
         <a class="marca-site" href="#">Pokédex</a>
-
-        <!-- Botão do menu) que abre o menu lateral no mobile -->
         <button class="botao-menu" id="botaoMenu">
-            <span class="barra"></span>
-            <span class="barra"></span>
-            <span class="barra"></span>
+          <span class="barra"></span>
+          <span class="barra"></span>
+          <span class="barra"></span>
         </button>
 
-        <!-- Menu de navegação -->
         <div class="menu-desktop" id="menuDesktop">
-            <ul class="lista-navegacao">
-                <li class="item-navegacao">
-                    <a class="link-navegacao ativo" href="index.html">Início</a>
-                </li>
-                <li class="item-navegacao">
-                    <a class="link-navegacao" href="favoritos.html">Favoritos</a>
-                </li>
-            </ul>
+          <ul class="lista-navegacao">
+            <li class="item-navegacao">
+              <a class="link-navegacao ativo" href="index.html">Início</a>
+            </li>
+            <li class="item-navegacao">
+              <a class="link-navegacao" href="favoritos.html">Favoritos</a>
+            </li>
+          </ul>
         </div>
-        </div>
+      </div>
     </nav>
 
-    <!-- Menu lateral que aparece ao clicar no botão no mobile -->
     <div class="menu-lateral" id="menuLateral">
-        <!-- Botão de fechar o menu lateral -->
-        <button class="botao-fechar" id="fecharMenu">&times;</button>
-
-        <div class="corpo-menu">
+      <button class="botao-fechar" id="fecharMenu">&times;</button>
+      <div class="corpo-menu">
         <ul class="lista-navegacao">
-            <li class="item-navegacao">
-                <a class="link-navegacao ativo" href="index.html">Início</a>
-            </li>
-            <li class="item-navegacao">
-                <a class="link-navegacao" href="favoritos.html">Favoritos</a>
-            </li>
+          <li class="item-navegacao">
+            <a class="link-navegacao ativo" href="index.html">Início</a>
+          </li>
+          <li class="item-navegacao">
+            <a class="link-navegacao" href="favoritos.html">Favoritos</a>
+          </li>
         </ul>
-        </div>
+      </div>
     </div>
 
-    <!-- Fundo escuro que aparece atrás do menu lateral -->
     <div class="fundo-escuro" id="fundoEscuro"></div>
   </header>
 
   <!-- Seção principal -->
   <section class="secao-conteudo">
     <div class="container">
-      <!-- Título da página -->
       <h1 class="titulo-secao">Meus Favoritos</h1>
-
-      <!-- Lista onde os Pokémon favoritos serão exibidos -->
       <ul id="lista-pokemon"></ul>
     </div>
   </section>
 
   <!-- Script -->
   <script>
-    // Seleciona a lista onde os Pokémon serão exibidos
     const lista = document.getElementById("lista-pokemon");
 
-    // Busca os favoritos salvos no localStorage (ou cria uma lista vazia se não houver)
-    const favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+    function obterFavoritos() {
+      return JSON.parse(localStorage.getItem("favoritos")) || [];
+    }
 
-    // Caso o usuário não tenha favoritos
-    if (favoritos.length === 0) {
-      lista.innerHTML = "<p>Você ainda não tem Pokémon favoritos 😢</p>";
-    } else {
-      // Percorre a lista de favoritos e cria um card para cada Pokémon
+    function salvarFavoritos(lista) {
+      localStorage.setItem("favoritos", JSON.stringify(lista));
+    }
+
+    function removerFavorito(id) {
+      let favoritos = obterFavoritos();
+      favoritos = favoritos.filter(p => p.id !== id);
+      salvarFavoritos(favoritos);
+      renderizarFavoritos();
+    }
+
+    function renderizarFavoritos() {
+      const favoritos = obterFavoritos();
+      lista.innerHTML = "";
+
+      if (favoritos.length === 0) {
+        lista.innerHTML = "<p>Você ainda não tem Pokémon favoritos 😢</p>";
+        return;
+      }
+
       favoritos.forEach(fav => {
         const li = document.createElement("li");
         li.classList.add("card");
 
-        // Adiciona a imagem, nome e ID do Pokémon
         li.innerHTML = `
+          <div class="favorite-btn">
+            <i class="fa-solid fa-star" data-id="${fav.id}" style="font-size: 1.5rem; color: gold; cursor: pointer;"></i>
+          </div>
           <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${fav.id}.png" alt="${fav.nome}">
           <p><strong>${fav.nome}</strong></p>
           <p>ID: ${fav.id}</p>
         `;
 
-        // Adiciona o card na lista
+        // Clique na estrela remove dos favoritos
+        li.querySelector(".fa-star").addEventListener("click", () => {
+          removerFavorito(fav.id);
+        });
+
         lista.appendChild(li);
       });
     }
 
-    // Dom menu lateral
+    // Inicializa a lista
+    renderizarFavoritos();
+
+    // Menu lateral
     const menuLateral = document.getElementById("menuLateral");
     const fundoEscuro = document.getElementById("fundoEscuro");
 
-    // Abre o menu lateral
     function abrirMenu() {
-        menuLateral.classList.add('aberto');
-        fundoEscuro.style.display = 'block';
+      menuLateral.classList.add('aberto');
+      fundoEscuro.style.display = 'block';
     }
 
-    // Fecha o menu lateral
     function fecharMenu() {
-        menuLateral.classList.remove('aberto');
-        fundoEscuro.style.display = 'none';
+      menuLateral.classList.remove('aberto');
+      fundoEscuro.style.display = 'none';
     }
 
-    // Adiciona os eventos de clique nos botões e fundo
     document.getElementById("botaoMenu").addEventListener('click', abrirMenu);
     document.getElementById("fecharMenu").addEventListener('click', fecharMenu);
     fundoEscuro.addEventListener('click', fecharMenu);
-    
   </script>
 </body>
 </html>

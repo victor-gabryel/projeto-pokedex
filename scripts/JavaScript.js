@@ -1,24 +1,24 @@
 // =================== DICIONÁRIO DE ÍCONES ===================
 // Cada tipo de Pokémon tem seu respectivo ícone SVG armazenado em "midia/"
 const iconesTipos = {
-  "Bug": "midia/bug.svg",
-  "Dark": "midia/dark.svg",
-  "Dragon": "midia/dragon.svg",
-  "Electric": "midia/electric.svg",
-  "Fairy": "midia/fairy.svg",
-  "Fighting": "midia/fighting.svg",
-  "Fire": "midia/fire.svg",
-  "Ghost": "midia/ghost.svg",
-  "Ice": "midia/ice.svg",
-  "Normal": "midia/normal.svg",
-  "Poison": "midia/poison.svg",
-  "Psychic": "midia/psychic.svg",
-  "Rock": "midia/rock.svg",
-  "Steel": "midia/steel.svg",
-  "Water": "midia/water.svg",
-  "Grass": "midia/grass.svg",
-  "Ground": "midia/ground.svg",
-  "Flying": "midia/flying.svg"
+  "bug": "midia/bug.svg",
+  "dark": "midia/dark.svg",
+  "dragon": "midia/dragon.svg",
+  "electric": "midia/electric.svg",
+  "fairy": "midia/fairy.svg",
+  "fighting": "midia/fighting.svg",
+  "fire": "midia/fire.svg",
+  "ghost": "midia/ghost.svg",
+  "ice": "midia/ice.svg",
+  "normal": "midia/normal.svg",
+  "poison": "midia/poison.svg",
+  "psychic": "midia/psychic.svg",
+  "rock": "midia/rock.svg",
+  "steel": "midia/steel.svg",
+  "water": "midia/water.svg",
+  "grass": "midia/grass.svg",
+  "ground": "midia/ground.svg",
+  "flying": "midia/flying.svg"
 };
 
 // Controle da paginação
@@ -199,10 +199,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("alturaModal").innerText = (pokemon.height / 10).toFixed(1);
     document.getElementById("pesoModal").innerText = (pokemon.weight / 10).toFixed(1);
 
-    // Monta os ícones dos tipos (ex: Fire, Water etc.)
+    // Monta os ícones dos tipos (ex: fire, water etc.)
     const tiposHtml = pokemon.types.map(t => {
-      const nomeTipo = t.type.name.charAt(0).toUpperCase() + t.type.name.slice(1);
-      const icone = iconesTipos[nomeTipo] || 'midia/pokeball.svg';
+      const icone = iconesTipos[t.type.name] || 'midia/pokeball.svg';
       const classeTipo = `type-${t.type.name.toLowerCase()}`;
       return `<img src="${icone}" alt="${t.type.name}" class="type-icon ${classeTipo}">`;
     }).join("");
