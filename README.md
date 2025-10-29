@@ -13,7 +13,11 @@ O sistema inclui:
 
 ---
 
-## 🖥️ index.html
+## Link da Página Web
+
+https://victor-gabryel.github.io/projeto-pokedex/
+
+## index.html
 
 ### Função
 
@@ -222,7 +226,7 @@ Os favoritos são salvos usando o **Local Storage** do navegador:
 
 ---
 
-## 👨‍💻 Autor
+## Autores
 
 **Desenvolvido por:** Victor Gabryel da Silva e Rafael Reis Borges da Silva
 **Linguagens:** HTML, CSS, JavaScript
