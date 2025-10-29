@@ -86,6 +86,10 @@
         menuLateral.classList.remove('aberto');
         fundoEscuro.style.display = 'none';
     }
+
+    document.getElementById("botaoMenu").addEventListener('click', abrirMenu);
+    document.getElementById("fecharMenu").addEventListener('click', fecharMenu);
+    fundoEscuro.addEventListener('click', fecharMenu);
     
   </script>
 </body>

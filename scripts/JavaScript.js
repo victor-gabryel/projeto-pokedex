@@ -1,3 +1,4 @@
+// Dicionario das Imagens do Icones
 const iconesTipos = {
   "Bug": "midia/bug.svg",
   "Dark": "midia/dark.svg",
@@ -20,6 +21,7 @@ const iconesTipos = {
 };
 
 let posicao = 0;
+// Quantidade Maxima de Cards por Pagina
 const limite = 20;
 
 const modalPokemon = document.getElementById("modalPokemon");
@@ -27,7 +29,7 @@ const menuLateral = document.getElementById("menuLateral");
 const fundoEscuro = document.getElementById("fundoEscuro");
 const listaPokemons = document.getElementById("lista-pokemon");
 
-// ----------------------- MODAL -----------------------
+// Modal
 function abrirModal() {
   modalPokemon.classList.add('aberto');
   document.body.style.overflow = 'hidden';
@@ -38,7 +40,7 @@ window.fecharModal = function() {
   document.body.style.overflow = '';
 }
 
-// -------------------- MENU LATERAL --------------------
+// Menu Lateral
 function abrirMenu() {
   menuLateral.classList.add('aberto');
   fundoEscuro.style.display = 'block';
@@ -48,7 +50,7 @@ function fecharMenu() {
   fundoEscuro.style.display = 'none';
 }
 
-// ------------------ FAVORITOS -----------------------
+// Favoritos
 function obterFavoritos() {
   return JSON.parse(localStorage.getItem("favoritos")) || [];
 }
@@ -83,13 +85,16 @@ function renderizarEstrelas() {
   });
 }
 
-// ------------------ EVENTOS -----------------------
+
+
+
+// Eventos
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("botaoMenu").addEventListener('click', abrirMenu);
   document.getElementById("fecharMenu").addEventListener('click', fecharMenu);
   fundoEscuro.addEventListener('click', fecharMenu);
 
-  // BUSCAR POKÉMON
+  // Buscar Pokemon
   window.buscarPokemon = async function() {
     fecharMenu(); 
     const input = document.getElementById("nomePokemon").value || document.getElementById("nomePokemonMobile").value;
@@ -106,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // LISTAR POKÉMONS
+  // Listar Pokemon
   async function carregarPokemons() {
     try {
       const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limite}&offset=${posicao}`);
