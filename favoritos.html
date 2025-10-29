@@ -1,73 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokédex</title>
-    
-    <link rel="stylesheet" href="estilos/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Favoritos - Pokédex</title>
+  <link rel="stylesheet" href="estilos/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-
-<header id="main-header">
-    <nav class="navbar">
+  <header id="cabecalho-principal">
+    <nav class="barra-navegacao">
         <div class="container">
-            <a class="navbar-brand" href="#">MeuSite</a>
+        <a class="marca-site" href="#">Pokédex</a>
 
-            <button class="nav-toggler" id="menuToggle">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
+        <button class="botao-menu" id="botaoMenu">
+            <span class="barra"></span>
+            <span class="barra"></span>
+            <span class="barra"></span>
+        </button>
 
-            <div class="nav-menu desktop-menu" id="menuDesktop">
-                <ul class="nav-list">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="favoritos.html">Favoritos</a>
-                    </li>
-                    <li class="nav-item nav-search-form">
-                        <input id="PokemonName" type="text" placeholder="Digite o nome" class="form-control">
-                        <button class="btn btn-light" onclick="BuscarName()">Buscar</button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    
-    <div class="sidebar" id="menuLateral">
-        <button class="close-btn" id="closeMenu">&times;</button>
-        <div class="sidebar-body">
-            <ul class="nav-list">
-                <li class="nav-item">
-                    <a class="nav-link active" href="index.html">Inicio</a>
+        <div class="menu-desktop" id="menuDesktop">
+            <ul class="lista-navegacao">
+                <li class="item-navegacao">
+                    <a class="link-navegacao ativo" href="index.html">Início</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="favoritos.html">Favoritos</a>
-                </li>
-                <li class="nav-item nav-search-form">
-                    <input id="PokemonNameSmall" type="text" placeholder="Digite o nome" class="form-control mb-2">
-                    <button class="btn btn-light w-100" onclick="BuscarName()">Buscar</button>
+                <li class="item-navegacao">
+                    <a class="link-navegacao" href="favoritos.html">Favoritos</a>
                 </li>
             </ul>
         </div>
-    </div>
-    <div class="backdrop" id="backdrop"></div>
-</header>
-<section id="PokeList" class="content-section">
-    <div class="container">
-        <h1 class="section-title">Pokédex</h1>
-        <ul id="pokemon-list"></ul>
-        <div class="pagination-controls">
-            <button class="btn btn-primary" onclick="prevPage()">Anterior</button>
-            <button class="btn btn-primary" onclick="nextPage()">Próximo</button>
+        </div>
+    </nav>
+
+    <div class="menu-lateral" id="menuLateral">
+        <button class="botao-fechar" id="fecharMenu">&times;</button>
+        <div class="corpo-menu">
+        <ul class="lista-navegacao">
+            <li class="item-navegacao">
+                <a class="link-navegacao ativo" href="index.html">Início</a>
+            </li>
+            <li class="item-navegacao">
+                <a class="link-navegacao" href="favoritos.html">Favoritos</a>
+            </li>
+        </ul>
         </div>
     </div>
+    <div class="fundo-escuro" id="fundoEscuro"></div>
+    </header>
 
+  <section class="secao-conteudo">
+    <div class="container">
+      <h1 class="titulo-secao">Meus Favoritos</h1>
+      <ul id="lista-pokemon"></ul>
+    </div>
+  </section>
 
-</section>
+  <script>
+    const lista = document.getElementById("lista-pokemon");
+    const favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
 
+    if (favoritos.length === 0) {
+      lista.innerHTML = "<p>Você ainda não tem Pokémon favoritos 😢</p>";
+    } else {
+      favoritos.forEach(fav => {
+        const li = document.createElement("li");
+        li.classList.add("card");
+        li.innerHTML = `
+          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${fav.id}.png" alt="${fav.nome}">
+          <p><strong>${fav.nome}</strong></p>
+          <p>ID: ${fav.id}</p>
+        `;
+        lista.appendChild(li);
+      });
+    }
+
+    const menuLateral = document.getElementById("menuLateral");
+    const fundoEscuro = document.getElementById("fundoEscuro");
+
+    function abrirMenu() {
+        menuLateral.classList.add('aberto');
+        fundoEscuro.style.display = 'block';
+    }
+
+    function fecharMenu() {
+        menuLateral.classList.remove('aberto');
+        fundoEscuro.style.display = 'none';
+    }
+    
+  </script>
 </body>
 </html>
