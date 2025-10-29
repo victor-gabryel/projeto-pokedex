@@ -1,26 +1,33 @@
-/* =================== VARIÁVEIS E RESET =================== */
+/* =================== VARIÁVEIS GLOBAIS =================== */
 :root {
+    /* Definição das cores principais do site */
     --cor-primaria: #0d6efd;
     --cor-clara: #f8f9fa;
     --cor-escura: #333;
     --fundo-cinza: #f4f4f4;
 }
 
+/* Config gerais */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+/* =================== CONFIGURAÇÕES GERAIS =================== */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--fundo-cinza);
     color: var(--cor-escura);
-    padding-top: 60px; /* espaço para o cabeçalho fixo */
+    padding-top: 60px;
 }
 
-a { text-decoration: none; color: inherit; }
+a {
+    text-decoration: none;
+    color: inherit; /* Link herda a cor do texto ao redor */
+}
 
+/* Container padrão para centralizar e limitar a largura do conteúdo */
 .container {
     width: 90%;
     max-width: 1200px;
@@ -38,13 +45,31 @@ a { text-decoration: none; color: inherit; }
     transition: background 0.3s ease, opacity 0.3s ease;
 }
 
-.btn-primario { background-color: var(--cor-primaria); color: white; }
-.btn-primario:hover { background-color: #0b5ed7; }
+/* Botão principal */
+.btn-primario {
+    background-color: var(--cor-primaria);
+    color: white;
+}
 
-.btn-claro { background-color: var(--cor-clara); color: var(--cor-escura); border: 1px solid #ddd; }
-.btn-secundario { background-color: #6c757d; color: white; }
+/* Efeito hover para o botão principal */
+.btn-primario:hover {
+    background-color: #0b5ed7;
+}
 
-/* =================== FORMULÁRIOS =================== */
+/* Botão claro */
+.btn-claro { 
+    background-color: var(--cor-clara);
+    color: var(--cor-escura);
+    border: 1px solid #ddd;
+}
+
+/* Botão cinza (secundário) */
+.btn-secundario {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* =================== CAMPOS DE FORMULÁRIO =================== */
 .campo-formulario {
     padding: 8px;
     border: 1px solid #ccc;
@@ -52,35 +77,69 @@ a { text-decoration: none; color: inherit; }
     width: 100%;
 }
 
-/* =================== NAVBAR =================== */
-#cabecalho-principal { position: fixed; top:0; left:0; width:100%; z-index:1000; }
+/* =================== CABEÇALHO E MENU =================== */
+#cabecalho-principal {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000; /* Fica por cima do conteúdo */
+}
 
+/* Barra de navegação principal */
 .barra-navegacao {
     background-color: var(--cor-primaria);
     color: white;
     padding: 10px 0;
 }
 
+/* Container da barra com espaçamento entre logo e menu */
 .barra-navegacao .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+/* Nome do site */
 .marca-site {
     font-size: 1.5rem;
     font-weight: 700;
 }
 
-/* MENU DESKTOP */
-.menu-desktop { display: none; }
-.lista-navegacao { display: flex; list-style: none; }
-.item-navegacao { margin-left: 20px; }
-.link-navegacao { padding: 8px 0; transition: opacity 0.3s; }
-.link-navegacao:hover { opacity: 0.8; }
-.form-busca { display: flex; gap: 8px; }
+/* Esconde o menu desktop por padrão  */
+.menu-desktop {
+    display: none;
+}
 
-/* HAMBURGER */
+/* Estilo geral da lista de navegação */
+.lista-navegacao {
+    display: flex;
+    list-style: none;
+}
+
+/* Espaçamento entre os itens do menu */
+.item-navegacao {
+    margin-left: 20px;
+}
+
+/* Link do menu */
+.link-navegacao {
+    padding: 8px 0;
+    transition: opacity 0.3s;
+}
+
+/* Hover ao passar o mouse */
+.link-navegacao:hover {
+    opacity: 0.8;
+}
+
+/* Formulário de busca no header */
+.form-busca {
+    display: flex;
+    gap: 8px;
+}
+
+/* Botão do menu hambúrguer */
 .botao-menu {
     display: flex;
     flex-direction: column;
@@ -92,6 +151,8 @@ a { text-decoration: none; color: inherit; }
     cursor: pointer;
     z-index: 1010;
 }
+
+/* Barrinhas do botão hambúrguer */
 .botao-menu .barra {
     width: 100%;
     height: 3px;
@@ -113,11 +174,28 @@ a { text-decoration: none; color: inherit; }
     padding: 20px;
 }
 
-.menu-lateral.aberto { right: 0; }
-.menu-lateral .lista-navegacao { flex-direction: column; }
-.menu-lateral .item-navegacao { margin: 10px 0; width: 100%; }
-.menu-lateral .form-busca { flex-direction: column; padding-top: 10px; }
+/* Quando o menu é aberto */
+.menu-lateral.aberto {
+    right: 0;
+}
 
+/* Lista de navegação no menu lateral */
+.menu-lateral .lista-navegacao {
+    flex-direction: column;
+}
+
+.menu-lateral .item-navegacao {
+    margin: 10px 0; 
+    width: 100%; 
+}
+
+/* Campo de busca dentro do menu lateral */
+.menu-lateral .form-busca {
+    flex-direction: column; 
+    padding-top: 10px;
+}
+
+/* Botão para fechar o menu lateral */
 .botao-fechar {
     position: absolute;
     top: 10px;
@@ -129,25 +207,44 @@ a { text-decoration: none; color: inherit; }
     color: white;
 }
 
+/* Fundo escuro que aparece atrás do menu lateral */
 .fundo-escuro {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1010;
     display: none;
 }
 
-/* =================== MEDIA QUERY =================== */
+/* =================== RESPONSIVIDADE =================== */
 @media (min-width: 992px) {
-    .botao-menu { display: none; }
-    .menu-desktop { display: block; }
-    .menu-desktop .lista-navegacao { justify-content: flex-end; }
-    .menu-lateral, .fundo-escuro { display: none !important; }
-    .form-busca { margin-left: 20px; align-items: center; }
-    .form-busca .campo-formulario { width: 150px; }
+    .botao-menu {
+        display: none; /* some o menu hambúrguer */
+    }
+    
+    .menu-desktop {
+        display: block; /* mostra o menu completo */
+    }
+
+    .menu-desktop .lista-navegacao {
+        justify-content: flex-end;
+    }
+
+    .menu-lateral, .fundo-escuro {
+        display: none !important;
+    }
+
+    .form-busca {
+        margin-left: 20px; 
+        align-items: center;
+    }
+
+    .form-busca .campo-formulario {
+        width: 150px;
+    }
 }
 
 /* =================== CONTEÚDO PRINCIPAL =================== */
@@ -157,6 +254,7 @@ a { text-decoration: none; color: inherit; }
     padding-top: 20px;
 }
 
+/* Lista de cards */
 #lista-pokemon {
     display: flex;
     flex-wrap: wrap;
@@ -167,6 +265,7 @@ a { text-decoration: none; color: inherit; }
     margin-bottom: 25px;
 }
 
+/* Controles de paginação */
 .controles-paginacao {
     display: flex;
     justify-content: space-between;
@@ -189,8 +288,19 @@ a { text-decoration: none; color: inherit; }
     padding: 32px 10px 10px;
 }
 
-.card:hover { transform: scale(1.05); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-.favorite-btn { position: absolute; top: 4px; right: 4px; z-index: 10; }
+/* Efeito hover nos cards */
+.card:hover { 
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Botão de favorito dentro do card */
+.favorite-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    z-index: 10;
+}
 
 /* =================== MODAL =================== */
 .modal {
@@ -206,14 +316,19 @@ a { text-decoration: none; color: inherit; }
     z-index: 2000;
 }
 
-.modal.aberto { display: flex; }
+/* Quando o modal está aberto */
+.modal.aberto {
+    display: flex;
+}
 
+/* Container do conteúdo do modal */
 .modal-dialogo {
     max-width: 400px;
     width: 90%;
     margin: 20px;
 }
 
+/* Conteúdo interno do modal */
 .modal-conteudo {
     background-color: white;
     padding: 20px;
@@ -222,6 +337,7 @@ a { text-decoration: none; color: inherit; }
     text-align: center;
 }
 
+/* Botão de fechar modal */
 .botao-fechar-modal {
     position: absolute;
     top: 10px;
@@ -233,8 +349,13 @@ a { text-decoration: none; color: inherit; }
     color: var(--cor-escura);
 }
 
-.modal-img { display: block; margin: 0 auto 15px; }
+/* Imagem centralizada no modal */
+.modal-img { 
+    display: block; 
+    margin: 0 auto 15px; 
+}
 
+/* Tipos de Pokémon dentro do modal */
 #tiposModal {
     display: flex;
     justify-content: center;
@@ -243,6 +364,7 @@ a { text-decoration: none; color: inherit; }
     margin-top: 8px;
 }
 
+/* Estilo dos ícones de tipo */
 #tiposModal .type-icon {
     width: 40px;
     height: 40px;
@@ -251,7 +373,7 @@ a { text-decoration: none; color: inherit; }
     box-shadow: 0 0 5px rgba(0,0,0,0.25);
 }
 
-/* =================== TIPOS (cores dos Pokémon) =================== */
+/* =================== CORES DOS TIPOS DE POKÉMON =================== */
 .type-bug { background-color: #92BC2C; }
 .type-dark { background-color: #595761; }
 .type-dragon { background-color: #0C69C8; }
@@ -270,3 +392,29 @@ a { text-decoration: none; color: inherit; }
 .type-steel { background-color: #5695A3; }
 .type-water { background-color: #539DDF; }
 .type-flying { background-color: #A1BBEC; }
+
+/* =================== RODAPÉ =================== */
+footer {
+    margin-top: 9vh;
+    background: linear-gradient(#5c5757, #5a5454);
+    color: #fff;
+    text-align: center;
+    padding: 25px 10px;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+    border-top: 3px solid #fff;
+}
+
+/* Parágrafos dentro do rodapé */
+footer p {
+    margin: 5px 0;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Texto principal do rodapé */
+#pfooter {
+    font-weight: bold;
+    font-size: 15px;
+}

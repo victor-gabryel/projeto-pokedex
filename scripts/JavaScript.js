@@ -1,4 +1,5 @@
-// Dicionario das Imagens do Icones
+// =================== DICIONÁRIO DE ÍCONES ===================
+// Cada tipo de Pokémon tem seu respectivo ícone SVG armazenado em "midia/"
 const iconesTipos = {
   "Bug": "midia/bug.svg",
   "Dark": "midia/dark.svg",
@@ -20,62 +21,75 @@ const iconesTipos = {
   "Flying": "midia/flying.svg"
 };
 
-let posicao = 0;
-// Quantidade Maxima de Cards por Pagina
-const limite = 20;
+// Controle da paginação
+let posicao = 0; // posição atual (offset)
+const limite = 20; // quantidade máxima de cards por página
 
+// Principais elementos do DOM
 const modalPokemon = document.getElementById("modalPokemon");
 const menuLateral = document.getElementById("menuLateral");
 const fundoEscuro = document.getElementById("fundoEscuro");
 const listaPokemons = document.getElementById("lista-pokemon");
 
-// Modal
+// =================== MODAL ===================
+// Abre o modal e bloqueia o scroll do body
 function abrirModal() {
   modalPokemon.classList.add('aberto');
   document.body.style.overflow = 'hidden';
 }
 
+// Fecha o modal e libera o scroll novamente
 window.fecharModal = function() {
   modalPokemon.classList.remove('aberto');
   document.body.style.overflow = '';
 }
 
-// Menu Lateral
+// =================== MENU LATERAL ===================
 function abrirMenu() {
   menuLateral.classList.add('aberto');
-  fundoEscuro.style.display = 'block';
+  fundoEscuro.style.display = 'block'; // mostra o fundo escuro atrás do menu
 }
+
 function fecharMenu() {
   menuLateral.classList.remove('aberto');
   fundoEscuro.style.display = 'none';
 }
 
-// Favoritos
+// =================== FAVORITOS ===================
+// Retorna a lista de favoritos armazenada no localStorage
 function obterFavoritos() {
   return JSON.parse(localStorage.getItem("favoritos")) || [];
 }
 
+// Salva a lista atualizada de favoritos
 function salvarFavoritos(lista) {
   localStorage.setItem("favoritos", JSON.stringify(lista));
 }
 
+// Adiciona ou remove um Pokémon dos favoritos
 function alternarFavorito(id, nome) {
   let favoritos = obterFavoritos();
   const existe = favoritos.find(p => p.id === id);
 
+  // Se já estiver nos favoritos, remove
   if (existe) {
     favoritos = favoritos.filter(p => p.id !== id);
-  } else {
+  } 
+  // Se não estiver, adiciona
+  else {
     favoritos.push({ id, nome });
   }
+
   salvarFavoritos(favoritos);
-  renderizarEstrelas();
+  renderizarEstrelas(); // atualiza as estrelas nos cards
 }
 
+// Verifica se um Pokémon é favorito
 function ehFavorito(id) {
   return obterFavoritos().some(p => p.id === id);
 }
 
+// Atualiza a aparência das estrelas nos cards (cheia/vazia)
 function renderizarEstrelas() {
   document.querySelectorAll(".favorite-btn i").forEach(estrela => {
     const id = parseInt(estrela.dataset.id);
@@ -85,35 +99,38 @@ function renderizarEstrelas() {
   });
 }
 
-
-
-
-// Eventos
+// =================== EVENTOS ===================
 document.addEventListener("DOMContentLoaded", () => {
+  // Eventos de abrir e fechar o menu lateral
   document.getElementById("botaoMenu").addEventListener('click', abrirMenu);
   document.getElementById("fecharMenu").addEventListener('click', fecharMenu);
   fundoEscuro.addEventListener('click', fecharMenu);
 
-  // Buscar Pokemon
+  // =================== BUSCA DE POKÉMON ===================
   window.buscarPokemon = async function() {
-    fecharMenu(); 
-    const input = document.getElementById("nomePokemon").value || document.getElementById("nomePokemonMobile").value;
+    fecharMenu(); // fecha o menu após a busca (em telas menores)
+
+    // Captura o valor do campo de busca (desktop ou mobile)
+    const input = document.getElementById("nomePokemon").value || 
+                  document.getElementById("nomePokemonMobile").value;
     const nome = input.toLowerCase().trim();
-    if (!nome) return;
+    if (!nome) return; // se o campo estiver vazio, não faz nada
 
     try {
       const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${nome}`);
       if (!res.ok) return alert(`Pokémon "${input}" não encontrado!`);
+
       const dados = await res.json();
-      mostrarDetalhes(dados);
+      mostrarDetalhes(dados); // abre o modal com detalhes do Pokémon
     } catch (erro) {
       alert(`Erro ao buscar Pokémon: ${erro.message}`);
     }
   };
 
-  // Listar Pokemon
+  // =================== LISTAGEM DE POKÉMONS ===================
   async function carregarPokemons() {
     try {
+      // Busca lista de Pokémons da API com base na página atual
       const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limite}&offset=${posicao}`);
       const dados = await res.json();
       exibirPokemons(dados.results);
@@ -122,12 +139,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Exibe os cards de Pokémon na tela
   function exibirPokemons(pokemons) {
-    listaPokemons.innerHTML = "";
+    listaPokemons.innerHTML = ""; // limpa a lista antes de renderizar
+
     pokemons.forEach(poke => {
       const id = getId(poke.url);
       const nomeFormatado = poke.name.charAt(0).toUpperCase() + poke.name.slice(1);
 
+      // Cria o card
       const li = document.createElement("li");
       li.classList.add("card");
       li.innerHTML = `
@@ -141,17 +161,17 @@ document.addEventListener("DOMContentLoaded", () => {
         <p>ID: ${id}</p>
       `;
 
-      // Clique para abrir modal
+      // Clique no card abre o modal (menos na estrela)
       li.addEventListener("click", async (e) => {
-        if (e.target.classList.contains("fa-star")) return;
+        if (e.target.classList.contains("fa-star")) return; // ignora clique na estrela
         const res = await fetch(poke.url);
         const dados = await res.json();
         mostrarDetalhes(dados);
       });
 
-      // Clique na estrela
+      // Clique na estrela adiciona/remove dos favoritos
       li.querySelector(".fa-star").addEventListener("click", (e) => {
-        e.stopPropagation();
+        e.stopPropagation(); // impede que o clique abra o modal
         alternarFavorito(parseInt(id), nomeFormatado);
       });
 
@@ -159,22 +179,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Extrai o ID do Pokémon a partir da URL da API
   function getId(url) {
     const partes = url.split("/");
     return partes[partes.length - 2];
   }
 
+  // Mostra as informações detalhadas do Pokémon no modal
   function mostrarDetalhes(pokemon) {
+    // Usa sprite animado se existir, senão o sprite padrão
     const sprite = pokemon.sprites.versions['generation-v']['black-white'].animated.front_default
       || pokemon.sprites.front_default
       || "midia/pokeball.svg";
 
+    // Preenche os elementos do modal
     document.getElementById("tituloModal").innerText = pokemon.name;
     document.getElementById("imagemModal").src = sprite;
     document.getElementById("idModal").innerText = pokemon.id;
     document.getElementById("alturaModal").innerText = (pokemon.height / 10).toFixed(1);
     document.getElementById("pesoModal").innerText = (pokemon.weight / 10).toFixed(1);
 
+    // Monta os ícones dos tipos (ex: Fire, Water etc.)
     const tiposHtml = pokemon.types.map(t => {
       const nomeTipo = t.type.name.charAt(0).toUpperCase() + t.type.name.slice(1);
       const icone = iconesTipos[nomeTipo] || 'midia/pokeball.svg';
@@ -183,16 +208,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }).join("");
 
     document.getElementById("tiposModal").innerHTML = tiposHtml;
-    abrirModal();
+    abrirModal(); // exibe o modal
   }
 
-  // PAGINAÇÃO
+  // =================== PAGINAÇÃO ===================
+  // Próxima página
   window.proximaPagina = function() {
     posicao += limite;
     carregarPokemons();
     document.getElementById("listaPokemons").scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Página anterior
   window.paginaAnterior = function() {
     if (posicao >= limite) {
       posicao -= limite;
@@ -201,5 +228,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  // Carrega os primeiros 20 Pokémon ao iniciar
   carregarPokemons();
 });
